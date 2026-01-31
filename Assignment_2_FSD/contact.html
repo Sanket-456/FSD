@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Contact - AquaWorld</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="layout">
+
+    <aside class="sidebar">
+        <h2 class="logo">AquaWorld</h2>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="gallery.html">Gallery</a>
+            <a href="contact.html" class="active">Contact</a>
+        </nav>
+    </aside>
+
+    <main class="content">
+        <h1>Contact Us</h1>
+        <p>Send us a message and we’ll reach out to you.</p>
+
+        <div class="contact-layout">
+
+            <!-- CONTACT FORM -->
+            <form id="contactForm" class="contact-form">
+                <input type="text" name="name" placeholder="Your Name" required>
+                <input type="email" name="email" placeholder="Your Email" required>
+                <textarea name="message" placeholder="Your Message" required></textarea>
+                <button type="submit">Send Message</button>
+            </form>
+
+            <!-- MAP -->
+            <div class="map-box">
+                <iframe
+                    src="https://www.google.com/maps?q=water%20park&output=embed"
+                    loading="lazy">
+                </iframe>
+            </div>
+
+        </div>
+    </main>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+<script src="script1.js"></script>
+
+</body>
+</html>
