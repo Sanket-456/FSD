@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Change Password Validation</title>
+
+    <script>
+        function validatePassword() {
+            let current = document.getElementById("current").value;
+            let newPass = document.getElementById("new").value;
+            let confirmPass = document.getElementById("confirm").value;
+            let msg = document.getElementById("msg");
+
+            msg.innerHTML = "";
+
+            if (current === "" || newPass === "" || confirmPass === "") {
+                msg.innerHTML = "All fields are mandatory.";
+                return false;
+            }
+
+            let pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+
+            if (!pattern.test(newPass)) {
+                msg.innerHTML = "Password must be at least 8 characters with uppercase, lowercase, number and special character.";
+                return false;
+            }
+
+            if (current === newPass) {
+                msg.innerHTML = "New password must be different from current password.";
+                return false;
+            }
+
+            if (newPass !== confirmPass) {
+                msg.innerHTML = "Confirm password does not match.";
+                return false;
+            }
+
+            alert("Password changed successfully!");
+            return true;
+        }
+
+        function togglePassword(id) {
+            let field = document.getElementById(id);
+            field.type = (field.type === "password") ? "text" : "password";
+        }
+    </script>
+
+    <style>
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+
+<h2>Change Password</h2>
+
+<form onsubmit="return validatePassword();">
+
+    <label>Current Password:</label><br>
+    <input type="password" id="current">
+    <input type="checkbox" onclick="togglePassword('current')"> Show Password
+    <br><br>
+
+    <label>New Password:</label><br>
+    <input type="password" id="new">
+    <input type="checkbox" onclick="togglePassword('new')"> Show Password
+    <br><br>
+
+    <label>Confirm Password:</label><br>
+    <input type="password" id="confirm">
+    <input type="checkbox" onclick="togglePassword('confirm')"> Show Password
+    <br><br>
+
+    <span id="msg" class="error"></span><br><br>
+
+    <input type="submit" value="Change Password">
+</form>
+
+</body>
+</html>
