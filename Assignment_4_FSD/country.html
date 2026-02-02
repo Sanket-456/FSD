@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>University List by Country</title>
+
+    <script>
+        function getUniversities() {
+            let country = document.getElementById("country").value;
+            let output = document.getElementById("result");
+
+            output.innerHTML = "";
+
+            if (country === "") {
+                alert("Please enter country name");
+                return;
+            }
+
+            let url = "http://universities.hipolabs.com/search?country=" + country;
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.length === 0) {
+                        output.innerHTML = "No universities found.";
+                        return;
+                    }
+
+                    let list = "<ul>";
+                    data.forEach(university => {
+                        list += "<li>" + university.name + "</li>";
+                    });
+                    list += "</ul>";
+
+                    output.innerHTML = list;
+                })
+                .catch(error => {
+                    output.innerHTML = "Error fetching data";
+                });
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: Arial;
+        }
+    </style>
+</head>
+
+<body>
+
+<h2>University Finder</h2>
+
+<form onsubmit="return false;">
+    Enter Country Name:
+    <input type="text" id="country" placeholder="India">
+    <input type="button" value="Get Universities" onclick="getUniversities()">
+</form>
+
+<br>
+
+<div id="result"></div>
+
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fetch States Using AJAX</title>
+
+    <script>
+        function getStates() {
+            let country = document.getElementById("country").value;
+            let result = document.getElementById("result");
+
+            result.innerHTML = "";
+
+            if (country === "") {
+                alert("Please enter country name");
+                return;
+            }
+
+            let url = "https://countriesnow.space/api/v0.1/countries/states";
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    let countries = data.data;
+                    let found = false;
+                    let list = "<ul>";
+
+                    for (let i = 0; i < countries.length; i++) {
+                        if (countries[i].name.toLowerCase() === country.toLowerCase()) {
+                            countries[i].states.forEach(state => {
+                                list += "<li>" + state.name + "</li>";
+                            });
+                            found = true;
+                            break;
+                        }
+                    }
+
+                    list += "</ul>";
+
+                    if (found) {
+                        result.innerHTML = list;
+                    } else {
+                        result.innerHTML = "Country not found";
+                    }
+                })
+                .catch(error => {
+                    result.innerHTML = "Error fetching data";
+                });
+        }
+    </script>
+</head>
+
+<body>
+
+<h2>State List Finder</h2>
+
+<form onsubmit="return false;">
+    Enter Country Name:
+    <input type="text" id="country" placeholder="India">
+    <input type="button" value="Get States" onclick="getStates()">
+</form>
+
+<br>
+
+<div id="result"></div>
+
+</body>
+</html>

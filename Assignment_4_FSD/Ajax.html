@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>GitHub Username Validation</title>
+
+    <script>
+        function checkUsername() {
+            let username = document.getElementById("username").value;
+            let result = document.getElementById("result");
+
+            result.innerHTML = "";
+
+            if (username === "") {
+                result.innerHTML = "Please enter a username.";
+                result.style.color = "red";
+                return;
+            }
+
+            let url = "https://api.github.com/users/" + username;
+
+            fetch(url)
+                .then(response => {
+                    if (response.status === 200) {
+                        result.innerHTML = "Valid GitHub Username ✔";
+                        result.style.color = "green";
+                    } else {
+                        result.innerHTML = "Invalid GitHub Username ✖";
+                        result.style.color = "red";
+                    }
+                })
+                .catch(error => {
+                    result.innerHTML = "Error checking username";
+                    result.style.color = "red";
+                });
+        }
+    </script>
+</head>
+
+<body>
+
+<h2>GitHub Username Checker</h2>
+
+<form onsubmit="return false;">
+    Enter GitHub Username:
+    <input type="text" id="username">
+    <input type="button" value="Check" onclick="checkUsername()">
+</form>
+
+<br>
+
+<p id="result"></p>
+
+</body>
+</html>
